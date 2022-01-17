@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<configuration>
+
+	<property name="LOG_HOME" value="../hisaige-log" />
+
+	<property name="FILE_PATH_ERROR"
+		value="${LOG_HOME}/hisaige-error.log" />
+
+	<property name="FILE_PATH_WARN"
+		value="${LOG_HOME}/hisaige-warn.log" />
+
+	<property name="FILE_PATH_INFO"
+		value="${LOG_HOME}/hisaige-info.log" />
+
+	<property name="FILE_PATH_DEBUG"
+		value="${LOG_HOME}/hisaige.log" />
+
+	<property name="FILE_PATH_SQL"
+		value="${LOG_HOME}/hisaige-sql.log" />
+
+	<property name="MAX_FILE_SIZE" value="50MB" />
+
+	<property name="TOTAL_SIZECAP" value="3GB" />
+
+	<property name="MAX_HISTORY" value="7" />
+
+	<property name="ROOT_LEVEL" value="INFO" />
+
+	<!-- 系统日志等级 -->
+	<property name="ADMIN_LEVEL" value="DEBUG" />
+	
+	<!-- 打印sql日志等级 -->
+	<property name="SQL_LEVEL" value="DEBUG" />
+
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{50} -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 按照每天生成日志文件 -->
+	<appender name="LOG-ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--日志文件输出的文件名 -->
+		<File>${FILE_PATH_ERROR}</File>
+		<!--滚动日志 基于时间和文件大小 -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 滚动日志文件保存格式 -->
+			<FileNamePattern>${FILE_PATH_ERROR}.%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+			<totalSizeCap>${TOTAL_SIZECAP}</totalSizeCap>
+			<MaxHistory>${MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+		<!-- 按临界值过滤日志：低于ERROR以下级别被抛弃 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}
+				- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="LOG-WARN"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--日志文件输出的文件名 -->
+		<File>${FILE_PATH_WARN}</File>
+		<!--滚动日志 基于时间和文件大小 -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 滚动日志文件保存格式 -->
+			<FileNamePattern>${FILE_PATH_WARN}.%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+			<totalSizeCap>${TOTAL_SIZECAP}</totalSizeCap>
+			<MaxHistory>${MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+		<!-- 按指定规则过滤日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}
+				- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="LOG-INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--日志文件输出的文件名 -->
+		<File>${FILE_PATH_INFO}</File>
+		<!--滚动日志 基于时间和文件大小 -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 滚动日志文件保存格式 -->
+			<FileNamePattern>${FILE_PATH_INFO}.%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+			<totalSizeCap>${TOTAL_SIZECAP}</totalSizeCap>
+			<MaxHistory>${MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+		<!-- 按指定规则过滤日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}
+				- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+
+	<appender name="LOG-DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--日志文件输出的文件名 -->
+		<File>${FILE_PATH_DEBUG}</File>
+		<!--滚动日志 基于时间和文件大小 -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 滚动日志文件保存格式 -->
+			<FileNamePattern>${FILE_PATH_DEBUG}.%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+			<totalSizeCap>${TOTAL_SIZECAP}</totalSizeCap>
+			<MaxHistory>${MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+		<!-- 不过滤日志 -->
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}
+				- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+<!-- 记录sql -->
+	<appender name="LOG-SQL"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--日志文件输出的文件名 -->
+		<File>${FILE_PATH_SQL}</File>
+		<!--滚动日志 基于时间和文件大小 -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 滚动日志文件保存格式 -->
+			<FileNamePattern>${FILE_PATH_SQL}.%d{yyyy-MM-dd}.%i.log
+			</FileNamePattern>
+			<MaxFileSize>${MAX_FILE_SIZE}</MaxFileSize>
+			<totalSizeCap>${TOTAL_SIZECAP}</totalSizeCap>
+			<MaxHistory>${MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+		<!-- 按指定规则过滤日志,如果不想显示sql，则设置为INFO以上等级即可，也可以设置对应包含sql类的level -->
+<!-- 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter> -->
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %logger{50}
+				- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 配置定时任务日志 -->
+	<logger name="org.springframework.scheduling.quartz"
+		level="error" additivity="true">
+		<appender-ref ref="LOG-DEBUG" />
+	</logger>
+
+	<!-- 配置当前工程日志，即com.hisaige包下的日志， 如果不想打日志，可以设置level为info以上 -->
+	<logger name="com.hisaige" level="${ADMIN_LEVEL}"
+		additivity="true">
+		<appender-ref ref="LOG-DEBUG" />
+	</logger>
+	
+	<!-- 配置当前工程日志，即com.hisaige.database.mappers包下的日志，即sql打印日志内容 -->
+	<!-- additivity必须设置为false，否则日志输出将继承其他配置，导致sql日志输出到多个文件 -->
+	<!-- 配置多个appender-ref，同时输出到控制台和日志文件 -->
+	<logger name="com.hisaige.database.mappers" level="${SQL_LEVEL}"
+		additivity="false">
+		<appender-ref ref="LOG-SQL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="com.hisaige.**.dao" level="${SQL_LEVEL}"
+			additivity="false">
+		<appender-ref ref="LOG-SQL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	<root level="${ROOT_LEVEL}">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="LOG-INFO" />
+		<appender-ref ref="LOG-WARN" />
+		<appender-ref ref="LOG-ERROR" />
+	</root>
+
+	<logger name="org.apache.http" level="OFF" additivity="false" />
+	
+	<logger name="org.apache.http" level="OFF" additivity="false" />
+</configuration>

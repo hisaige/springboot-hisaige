@@ -1,0 +1,22 @@
+#spring: 
+#    datasource:
+#       type: com.alibaba.druid.pool.DruidDataSource
+#       platform: mysql
+#       druid: 
+#         username: root
+#         password: vms123
+#         url: jdbc:mysql://localhost:3316/gws_webservice?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true&serverTimezone=UTC
+##         url: jdbc:mysql://10.82.13.241:3316/xctest?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true&serverTimezone=UTC
+#         driver-class-userName: com.mysql.cj.jdbc.Driver
+##         driver-class-userName: com.mysql.jdbc.Driver
+
+logging:
+  config: classpath:logback.xml
+  
+spring: 
+    mvc: 
+      pathmatch:
+        use-suffix-pattern: false
+        use-registered-suffix-pattern: true
+      contentnegotiation:
+        favor-path-extension: false
